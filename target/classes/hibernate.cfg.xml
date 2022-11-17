@@ -1,0 +1,42 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="dialect">
+            org.hibernate.dialect.MySQL5Dialect
+        </property>
+
+        <property name = "hibernate.connection.driver_class">
+            com.mysql.cj.jdbc.Driver
+        </property>
+
+        <!-- Assume test is the database name -->
+
+        <property name = "hibernate.connection.url">
+            jdbc:mysql://localhost:3306/vehiclerent?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8
+        </property>
+
+        <property name = "hibernate.connection.username">
+            root
+        </property>
+
+        <property name = "hibernate.connection.password">
+            <!-- puste hasło -->
+        </property>
+
+        <property name="show_sql">true</property> <!-- jak hibernate bedzie generowal zapytania SQL to bedzie je wyswietlal na konsoli -->
+
+        <property name="hbm2ddl.auto">update</property> <!-- czy hibernate ma tworzyć tabelke obiektu w bazie danych (np Book zrobi tabelę book) -->
+        <!-- create tworzy za kazdym razem nowe tabele, usuwajac stare jesli byly za kolejnym razem, update znowu tylko nadpisuje istniejace, none nic ma nie robić tylko się podłączyć do bazy -->
+
+        <mapping class="pl.klusek.michal.model.User"/>
+        <mapping class="pl.klusek.michal.model.Reservation"/>
+        <mapping class="pl.klusek.michal.model.Vehicle"/>
+        <mapping class="pl.klusek.michal.model.Car"/>
+        <mapping class="pl.klusek.michal.model.Bike"/>
+        <mapping class="pl.klusek.michal.model.Motorcycle"/>
+
+    </session-factory>
+</hibernate-configuration>

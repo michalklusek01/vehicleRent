@@ -1,0 +1,60 @@
+#finder {
+    text-align: center;
+    margin: 10px 0;
+}
+
+input[type=text] {
+    padding:5px;
+    border:2px solid #ccc;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=text]:focus {
+    border-color:#333;
+}
+
+input[type=submit] {
+    padding:5px 15px;
+    background:#f59f16;
+    border:2 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 15px;
+}
+
+.vehicle{
+    border: 1px solid black;
+    border-radius: 15px;
+    transition: border 0.25s;
+    margin: 5px;
+    padding: 10px;
+}
+
+.vehicle:hover{
+    border: 1px solid red;
+}
+
+.vehicle-title div{
+    font-size: 30px;
+    display: inline-block;
+
+}
+
+
+.vehicle-info div{
+    font-size: 18px;
+    display: inline-block; /* każdy element będzie koło siebie, a nie w nowej linii */
+    margin-right: 15px;
+}
+
+#rent-false {
+color: #4ba61e;
+}
+
+#rent-true {
+color: #b81442;
+}
+
+
+

@@ -1,0 +1,29 @@
+#login-form{
+    text-align: center;
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+#login-form input[type=text] {
+    display: block;
+    margin: 15px auto;
+    width: 50%;
+    font-size: 20px;
+    text-align: center;
+}
+
+#login-form input[type=password] {
+    display: block;
+    margin: 15px auto;
+    width: 50%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.error-info {
+    color: red;
+}
+
+#content {
+    text-align: center;
+}

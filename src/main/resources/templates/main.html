@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia pojazdów</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="common.css">
+</head>
+<body style="background-color: #737373">
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <form id="finder" method="post" action="/find">
+        <input type="text" name="pattern">
+        <input type="submit" value="Szukaj pojazdu!">
+    </form>
+    <th:block th:each="vehicle : ${vehicles}">
+        <div class="vehicle">
+            <div class="vehicle-title">
+                <div th:text="${vehicle.brand}"></div>
+                <div th:text="${vehicle.model}"></div>
+            </div>
+            <div class="vehicle-info">
+                <div th:text="'Cena: ' + ${vehicle.price}"></div>
+                <div th:text="'Rok produkcji: ' + ${vehicle.yearOfProduction}"></div>
+                <div th:text="'Nr rejestracyjny: ' + ${vehicle.licensePlate}"></div>
+                <div th:if="${vehicle.rent} == true" id="rent-true">Pojazd niedostępny</div>
+                <div th:if="${vehicle.rent} == false" id="rent-false">Pojazd dostępny!</div>
+                <a href="/rent" th:if="${vehicle.rent} == false">Zarezerwuj!</a>
+                <form method="post" action="/rent_date" th:if="${vehicle.rent == false and role?.name() == 'USER'}">
+                    <div>Od:</div>
+                    <input type="date" name="dateString1">
+                    <div>Do:</div>
+                    <input type="date" name="dateString2">
+                    <input name="brand" th:value="${vehicle.brand}">
+                    <input name="model" th:value="${vehicle.model}">
+                    <input name="licensePlate" th:value="${vehicle.licensePlate}">
+                    <input type="submit" value="Rezerwuj!">
+                </form>
+            </div>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>
