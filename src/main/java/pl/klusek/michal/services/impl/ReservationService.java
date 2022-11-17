@@ -35,6 +35,7 @@ public class ReservationService implements IReservationService {
                 System.out.println("Pojazd w tym terminie dostępny i zarezerwowany!!");
                 Reservation addReservation = new Reservation(1, vehicle, user, dateFrom, dateTo);
                 this.reservationDAO.addReservation(reservation);
+                //
             }
         }
     }
