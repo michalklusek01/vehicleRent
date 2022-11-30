@@ -16,13 +16,6 @@ public class Vehicle {
     private double price;
     private boolean rent;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Car car;
-    @OneToOne(fetch = FetchType.EAGER)
-    private Motorcycle motorcycle;
-    @OneToOne(fetch = FetchType.EAGER)
-    private Bike bike;
-
     public Vehicle() {
     }
 
@@ -34,6 +27,10 @@ public class Vehicle {
         this.licensePlate = licensePlate;
         this.price = price;
         this.rent = rent;
+    }
+
+    public Vehicle(int id){
+        this.id = id;
     }
 
     public int getId() {
@@ -92,27 +89,24 @@ public class Vehicle {
         this.rent = rent;
     }
 
-    public Car getCar() {
-        return car;
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", yearOfProduction=" + yearOfProduction +
+                ", licensePlate='" + licensePlate + '\'' +
+                ", price=" + price +
+                ", rent=" + rent +
+                '}';
     }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Motorcycle getMotorcycle() {
-        return motorcycle;
-    }
-
-    public void setMotorcycle(Motorcycle motorcycle) {
-        this.motorcycle = motorcycle;
-    }
-
-    public Bike getBike() {
-        return bike;
-    }
-
-    public void setBike(Bike bike) {
-        this.bike = bike;
-    }
+    /*    public enum vehicleType{
+            CAR,
+            MOTORCYCLE,
+            BIKE
+            //TODO
+            //efektywniejszym rozwiazaniem jest wypisywanie po typie enuma w html dodatkowych atrybutow typu
+    }*/
 }

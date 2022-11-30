@@ -1,0 +1,14 @@
+.reservation {
+    margin: 5px 0;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.reservation-id {
+    font-size: 30px;
+}
+
+.reservation:hover > .reservation{ /* jesli order bedzie w stanie hover, oddziałuj na klasę positions (zmieni jej ustawienia) */
+    /* zeby tego uzyc musi byc div w divie */
+    display: block;
+}

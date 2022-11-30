@@ -5,14 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.klusek.michal.dao.IUserDAO;
-import pl.klusek.michal.model.Vehicle;
+import pl.klusek.michal.model.view.Mail;
 import pl.klusek.michal.services.IReservationService;
 import pl.klusek.michal.services.impl.VehicleService;
 import pl.klusek.michal.session.SessionObject;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class BasicController {
@@ -32,6 +30,8 @@ public class BasicController {
         model.addAttribute("vehicles", this.vehicleService.getFilteredVehicles());
         model.addAttribute("logged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "main";
     }
 
@@ -40,34 +40,34 @@ public class BasicController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String contact(Model model) {
+        model.addAttribute("mail", new Mail());
+        return "contact";
+    }
+    @RequestMapping(value = "/contact", method = RequestMethod.POST)
+    public String processForm(@ModelAttribute Mail mail) {
+        System.out.println(mail.getTitle());
+        System.out.println(mail.getMessage());
+        System.out.println(mail.getName());
+        return "redirect:/";
+    }
     @RequestMapping(value = "/find", method = RequestMethod.POST)
     public String find (@RequestParam String pattern){
-        this.sessionObject.setFindPattern(pattern);
+        this.sessionObject.setFindPattern(pattern);;
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/rent_date", method = RequestMethod.POST)
-    public String rentDate (@RequestParam String dateString1, @RequestParam String dateString2, @RequestParam String brand, @RequestParam String model, @RequestParam String licensePlate){
-        LocalDate date1 = LocalDate.parse(dateString1);
-        LocalDate date2 = LocalDate.parse(dateString2);
-        System.out.println(brand);
-        System.out.println(model);
-        System.out.println(licensePlate);
-        System.out.println(date1);
-        System.out.println(date2);
-        this.reservationService.addReservation(this.sessionObject.getUser(), this.vehicleService.getVehicleByData(brand,model,licensePlate), date1, date2);
-
+    @RequestMapping(value = "/filterVehicles", method = RequestMethod.POST)
+    public String filterVehicles(@RequestParam String vehicle_type){
+        this.sessionObject.setVehicleTypeFilter(vehicle_type);
         return "redirect:/";
-        //TODO
-        //zrobić sprawdzenie czy samochod w danym temrinie nie jest zajety
-        //zrobic informacje na stronie porownujace date dzisiejsza z data czy samochod nie jest zarezerwowany
-        //zrobic widok rezerwacji
-        //zrobic w widoku rezerwacji anulacje
-        //dodac koszt do rezerwacji (dni*koszt wynajmu)
-        //przekminic jak dodac informacje z odpowiendich tabel do pojazdów (Car, Bike, Motorcycle)
-        //Przeniesc rezerwacje do nowego widoku (do zastanowienia ?)
-        //porobic odpowiednie Controllery
     }
 
+    @RequestMapping(value = "/filterTransmission", method = RequestMethod.POST)
+    public String filterTransmission(@RequestParam String transmission_type){
+        this.sessionObject.setTransmissionTypeFilter(transmission_type);
+        return "redirect:/";
+    }
 
 }

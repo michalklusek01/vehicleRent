@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface IReservationService {
     public void addReservation(User user, Vehicle vehicle, LocalDate dateFrom, LocalDate dateTo);
+
     public List<Reservation> getReservationsByUserId(int id);
+
+/*    public void checkIfVehicleIsRent();*/
 }

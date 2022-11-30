@@ -10,21 +10,23 @@ public class Reservation {
     private int id;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Vehicle vehicle;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     User user;
     LocalDate dateFrom;
     LocalDate dateTo;
+    double price;
 
     public Reservation() {
     }
 
-    public Reservation(int id, Vehicle vehicle, User user, LocalDate dateFrom, LocalDate dateTo) {
+
+    public Reservation(int id, Vehicle vehicle, User user, LocalDate dateFrom, LocalDate dateTo, double price) {
         this.id = id;
         this.vehicle = vehicle;
         this.user = user;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.price = price;
     }
 
     public int getId() {
@@ -65,5 +67,13 @@ public class Reservation {
 
     public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

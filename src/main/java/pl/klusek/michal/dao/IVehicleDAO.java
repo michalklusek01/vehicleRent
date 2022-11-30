@@ -7,6 +7,12 @@ import java.util.List;
 public interface IVehicleDAO {
     List<Vehicle> getFilteredVehicles(String pattern);
     List<Vehicle> getAllVehicles();
+    void addVehicle(Vehicle vehicle);
+    Vehicle findVehicleByLicensePlate(String licensePlate);
+    void updateVehicle(Vehicle vehicle);
+//    Vehicle getVehicleByData(String brand, String model, String licensePlate);
+    Vehicle getVehicleById(int id);
 
-    Vehicle getVehicleByData(String brand, String model, String licensePlate);
+    List<Vehicle> getFilteredVehiclesByType(String vehicleType);
+    List<Vehicle> getFilteredVehiclesByTransmission(String transmission_type);
 }

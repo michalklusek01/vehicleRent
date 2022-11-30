@@ -47,7 +47,7 @@ public class MotorcycleDAO implements IMotorcycleDAO {
     @Override
     public Motorcycle FindMotorcycleByLicensePlate(String plate) {
         Session session = this.sessionFactory.openSession();
-        Query<Motorcycle> query = session.createQuery("FROM pl.klusek.michal.model.Motorcycle WHERE plate = :plate");
+        Query<Motorcycle> query = session.createQuery("FROM pl.klusek.michal.model.Motorcycle WHERE licensePlate = :plate");
         query.setParameter("plate", plate);
         Motorcycle motorcycle = null;
         try{

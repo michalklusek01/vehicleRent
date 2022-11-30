@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Wypożyczalnia pojazdów</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="contact.css">
+</head>
+<body style="background-color: #737373">
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
+<div id="content">
+  <div id="info">
+    VEHICLEPRO<br>
+    Lema 24/18<br>
+    31-571 Kraków
+  </div>
+
+  <form id="contact-form" method="post" action="/contact">
+    <div>Skontaktuj się z nami</div>
+    <input type="text" placeholder="Temat" th:field="*{mail.title}">
+    <textarea th:field="*{mail.message}"></textarea>
+    <input type="text" placeholder="Imie" th:field="*{mail.name}">
+    <input type="submit" value="Wyslij">
+  </form>
+</div>
+</body>
+</html>

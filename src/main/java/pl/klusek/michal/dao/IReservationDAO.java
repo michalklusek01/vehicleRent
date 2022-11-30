@@ -11,4 +11,5 @@ public interface IReservationDAO {
     public List<Reservation> getReservationsByUserId(int id);
     public List<Reservation> getReservationsByVehicleId(int userId);
     public List<Reservation> getAllReservations();
+
 }

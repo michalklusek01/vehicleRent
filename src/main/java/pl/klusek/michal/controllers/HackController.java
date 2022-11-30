@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.klusek.michal.dao.IBikeDAO;
 import pl.klusek.michal.dao.ICarDAO;
 import pl.klusek.michal.dao.IMotorcycleDAO;
+import pl.klusek.michal.dao.IUserDAO;
 import pl.klusek.michal.model.Bike;
 import pl.klusek.michal.model.Car;
 import pl.klusek.michal.model.Motorcycle;
+import pl.klusek.michal.model.User;
 
 @Controller
 public class HackController {
@@ -19,6 +21,9 @@ public class HackController {
     IBikeDAO bikeDAO;
     @Autowired
     IMotorcycleDAO motorcycleDAO;
+
+    @Autowired
+    IUserDAO userDAO;
 
     @RequestMapping(value = "/hack/addVehicles", method = RequestMethod.GET)
     public String addVehicles(){
@@ -39,12 +44,12 @@ public class HackController {
         motorcycleDAO.addMotorcycle(new Motorcycle(1, "Yamaha", "Aerox", 2012, "KR9JK4Y", 140, false, 1, Motorcycle.Type.SCOOTER, Motorcycle.Transmission.AUTOMATIC));
         motorcycleDAO.addMotorcycle(new Motorcycle(1, "Yamaha", "Tenere", 2021, "KR8SA97", 180, false, 1, Motorcycle.Type.CRUISER, Motorcycle.Transmission.MANUAL));
         motorcycleDAO.addMotorcycle(new Motorcycle(1, "KTM", "Adventure", 2020, "KR89C7D", 200, false, 1, Motorcycle.Type.CROSS, Motorcycle.Transmission.MANUAL));
-        bikeDAO.addBike(new Bike(1, "Kross", "HEXAGON", 2021, "", 50, false, 1, Bike.Type.MOUNTAIN));
-        bikeDAO.addBike(new Bike(1, "Kross", "LEVEL 2.0", 2020, "", 50, false, 1, Bike.Type.MOUNTAIN));
-        bikeDAO.addBike(new Bike(1, "Giant", "PROPEL ADVANCED PRO 2", 2020, "", 90, false, 1, Bike.Type.ROAD));
-        bikeDAO.addBike(new Bike(1, "Giant", "TCR ADVANCED", 2021, "", 90, false, 1, Bike.Type.ROAD));
-        bikeDAO.addBike(new Bike(1, "Specialized", "TURBO TERO 4.0 EQ", 2022, "", 150, false, 1, Bike.Type.ELECTRIC));
-        bikeDAO.addBike(new Bike(1, "Kross", "EVADO 5.0", 2021, "", 50, false, 1, Bike.Type.UTILITY));
+        bikeDAO.addBike(new Bike(1, "Kross", "HEXAGON", 2021, "Bike1", 50, false, 1, Bike.Type.MOUNTAIN));
+        bikeDAO.addBike(new Bike(1, "Kross", "LEVEL 2.0", 2020, "Bike2", 50, false, 1, Bike.Type.MOUNTAIN));
+        bikeDAO.addBike(new Bike(1, "Giant", "PROPEL ADVANCED PRO 2", 2020, "Bike3", 90, false, 1, Bike.Type.ROAD));
+        bikeDAO.addBike(new Bike(1, "Giant", "TCR ADVANCED", 2021, "Bike4", 90, false, 1, Bike.Type.ROAD));
+        bikeDAO.addBike(new Bike(1, "Specialized", "TURBO TERO 4.0 EQ", 2022, "Bike5", 150, false, 1, Bike.Type.ELECTRIC));
+        bikeDAO.addBike(new Bike(1, "Kross", "EVADO 5.0", 2021, "Bike6", 50, false, 1, Bike.Type.UTILITY));
         return "redirect:/main";
     }
 }

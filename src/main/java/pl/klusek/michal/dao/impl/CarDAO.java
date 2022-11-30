@@ -46,7 +46,7 @@ public class CarDAO implements ICarDAO {
     @Override
     public Car FindCarByLicensePlate(String plate) {
         Session session = this.sessionFactory.openSession();
-        Query<Car> query = session.createQuery("FROM pl.klusek.michal.model.Car WHERE plate = :plate");
+        Query<Car> query = session.createQuery("FROM pl.klusek.michal.model.Car WHERE licensePlate = :plate");
         query.setParameter("plate", plate);
         Car car = null;
         try{

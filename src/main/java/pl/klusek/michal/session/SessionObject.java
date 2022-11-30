@@ -10,6 +10,8 @@ public class SessionObject {
     private User user = null;
     private String info = null;
     private String findPattern;
+    private String transmissionTypeFilter;
+    private String vehicleTypeFilter;
 
     public SessionObject() {
     }
@@ -46,5 +48,21 @@ public class SessionObject {
 
     public void logout(){
         this.user = null;
+    }
+
+    public String getTransmissionTypeFilter() {
+        return transmissionTypeFilter;
+    }
+
+    public void setTransmissionTypeFilter(String transmissionTypeFilter) {
+        this.transmissionTypeFilter = transmissionTypeFilter;
+    }
+
+    public String getVehicleTypeFilter() {
+        return vehicleTypeFilter;
+    }
+
+    public void setVehicleTypeFilter(String vehicleTypeFilter) {
+        this.vehicleTypeFilter = vehicleTypeFilter;
     }
 }

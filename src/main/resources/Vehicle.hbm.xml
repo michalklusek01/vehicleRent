@@ -13,7 +13,7 @@
         <property name="yearOfProduction" column="yearOfProduction" type="int"/>
         <property name="licensePlate" column="licensePlate" type="string"/>
         <property name="price" column="price" type="double"/>
-        <property name="isRent" column="isRent" type="string"/>
+        <property name="idsRent" column="isRent" type="string"/>
         <joined-subclass name="pl.klusek.michal.model.Car" table="tcar">
             <key column="id"/>
             <property name="fuelType" column="fuelType" type="string"/>

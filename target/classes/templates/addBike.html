@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia pojazdów</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="addVehicle.css">
+    <script src="addBike.js"></script>
+</head>
+<body style="background-color: #737373">
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
+<div id="content">
+
+    <form id="add-vehicle-form" method="post" onsubmit="return validate()">
+        <div th:if="${info != null}" th:text="${info}" class="error-info"></div>
+        <input type="text" placeholder="Marka" th:field="*{bike.brand}">
+        <input type="text" placeholder="Model" th:field="*{bike.model}">
+        <input type="text" placeholder="Cena" th:field="*{bike.price}" id="price-input">
+        <input type="text" placeholder="Rok produkcji" th:field="*{bike.yearOfProduction}">
+        <input type="text" placeholder="Typ" th:field="*{bike.type}" id="type">
+        <input type="submit" value="Wyslij">
+    </form>
+</div>
+</body>
+</html>
