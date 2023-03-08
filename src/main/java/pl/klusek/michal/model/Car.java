@@ -4,9 +4,6 @@ import javax.persistence.*;
 @Entity(name="tcar")
 @PrimaryKeyJoinColumn(name = "vehicle_id")
 public class Car extends Vehicle{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Enumerated(EnumType.STRING)
     private Fuel fuelType;
     @Enumerated(EnumType.STRING)
@@ -16,22 +13,11 @@ public class Car extends Vehicle{
     public Car() {
     }
 
-    public Car(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean isRent, int id1, Fuel fuelType, Transmission transmission, boolean airConditioning) {
-        super(id, brand, model, yearOfProduction, licensePlate, price, isRent);
-        this.id = id1;
+    public Car(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean rent, VehicleType vehicleType, Fuel fuelType, Transmission transmission, boolean airConditioning) {
+        super(id, brand, model, yearOfProduction, licensePlate, price, rent, vehicleType);
         this.fuelType = fuelType;
         this.transmission = transmission;
         this.airConditioning = airConditioning;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Fuel getFuelType() {
@@ -56,6 +42,16 @@ public class Car extends Vehicle{
 
     public void setAirConditioning(boolean airConditioning) {
         this.airConditioning = airConditioning;
+    }
+
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
     }
 
     @Override
@@ -116,6 +112,16 @@ public class Car extends Vehicle{
     @Override
     public void setRent(boolean rent) {
         super.setRent(rent);
+    }
+
+    @Override
+    public VehicleType getVehicleType() {
+        return super.getVehicleType();
+    }
+
+    @Override
+    public void setVehicleType(VehicleType vehicleType) {
+        super.setVehicleType(vehicleType);
     }
 
     public enum Fuel{

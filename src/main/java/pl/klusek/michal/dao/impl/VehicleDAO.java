@@ -36,26 +36,6 @@ public class VehicleDAO implements IVehicleDAO {
         return vehicles;
     }
 
- /*   @Override
-    public Vehicle getVehicleByData(String brand, String model, String licensePlate) {
-        Session session = this.sessionFactory.openSession();
-        Query<Vehicle> query = session.createQuery("FROM pl.klusek.michal.model.Vehicle WHERE brand = :brand AND model = :model AND licensePlate = :licensePlate");
-        query.setParameter("brand", brand);
-        query.setParameter("model", model);
-        query.setParameter("licensePlate", licensePlate);
-
-        Vehicle vehicle = null;
-        try{
-            vehicle = query.getSingleResult();
-        } catch (NoResultException e){
-
-        }finally {
-            session.close();
-        }
-
-        return vehicle;
-    }*/
-
     @Override
     public void updateVehicle(Vehicle vehicle) {
         Session session = this.sessionFactory.openSession();
@@ -170,6 +150,24 @@ public class VehicleDAO implements IVehicleDAO {
         }else{
             session.close();
             return vehicles;
+        }
+    }
+
+    @Override
+    public void deleteVehicle(Vehicle vehicle) {
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        try{
+            transaction = session.beginTransaction();
+            session.delete(vehicle);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null){
+                transaction.rollback();
+            }
+        }finally {
+            session.close();
         }
     }
 }

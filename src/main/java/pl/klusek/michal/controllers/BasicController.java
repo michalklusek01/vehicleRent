@@ -29,9 +29,11 @@ public class BasicController {
     public String main(Model model){
         model.addAttribute("vehicles", this.vehicleService.getFilteredVehicles());
         model.addAttribute("logged", this.sessionObject.isLogged());
-        model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("role",
+                this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
         model.addAttribute("info", this.sessionObject.getInfo());
-        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
+        model.addAttribute("user",
+                this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "main";
     }
 
@@ -43,6 +45,7 @@ public class BasicController {
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact(Model model) {
         model.addAttribute("mail", new Mail());
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "contact";
     }
     @RequestMapping(value = "/contact", method = RequestMethod.POST)
@@ -50,6 +53,7 @@ public class BasicController {
         System.out.println(mail.getTitle());
         System.out.println(mail.getMessage());
         System.out.println(mail.getName());
+        this.sessionObject.setInfo("Wiadomość została wysłana!");
         return "redirect:/";
     }
     @RequestMapping(value = "/find", method = RequestMethod.POST)

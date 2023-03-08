@@ -33,4 +33,27 @@ public class AuthenticationService implements IAuthenticationService {
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         this.userDAO.addUser(user);
     }
+
+    @Override
+    public void updateUserPassword(User user) {
+        this.userDAO.changeUserPassword(user);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        if(this.userDAO.getUserByLogin(login) == null){
+            return null;
+        }else{
+            return this.userDAO.getUserByLogin(login);
+        }
+    }
+
+    @Override
+    public boolean checkUserData(User user) {
+        User userFromDb = this.userDAO.getUserByLogin(user.getLogin());
+        if(user.getName().equals(userFromDb.getName()) && user.getSurname().equals(userFromDb.getSurname())){
+            return true;
+        }
+        return false;
+    }
 }

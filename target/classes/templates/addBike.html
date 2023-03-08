@@ -4,22 +4,46 @@
     <meta charset="UTF-8">
     <title>Wypożyczalnia pojazdów</title>
     <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="addVehicle.css">
-    <script src="addBike.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="bootstrap.js"></script>
 </head>
 <body style="background-color: #737373">
-<div th:replace="fragments.html :: logo"></div>
-<div th:replace="fragments.html :: menu"></div>
+<div th:replace="menu.html :: main-menu"></div>
 <div id="content">
-
-    <form id="add-vehicle-form" method="post" onsubmit="return validate()">
-        <div th:if="${info != null}" th:text="${info}" class="error-info"></div>
-        <input type="text" placeholder="Marka" th:field="*{bike.brand}">
-        <input type="text" placeholder="Model" th:field="*{bike.model}">
-        <input type="text" placeholder="Cena" th:field="*{bike.price}" id="price-input">
-        <input type="text" placeholder="Rok produkcji" th:field="*{bike.yearOfProduction}">
-        <input type="text" placeholder="Typ" th:field="*{bike.type}" id="type">
-        <input type="submit" value="Wyslij">
+    <form class="row row-cols-1 row-cols-md-3 g-4" method="post" onsubmit="return validate()">
+        <div class="col">
+            <label for="inputBrand" class="form-label">Marka</label>
+            <input type="text" class="form-control" id="inputBrand" th:field="*{bike.brand}">
+        </div>
+        <div class="col">
+            <label for="inputModel" class="form-label">Model</label>
+            <input type="text" class="form-control" id="inputModel" th:field="*{bike.model}">
+        </div>
+        <div class="col">
+            <label for="inputPrice" class="form-label">Cena/dzień</label>
+            <input type="number" class="form-control" id="inputPrice" min="0" max="1000" th:field="*{bike.price}">
+        </div>
+        <div class="col">
+            <label for="inputYear" class="form-label">Rok produkcji</label>
+            <input type="number" class="form-control" id="inputYear" placeholder="Rok produkcji" min="2000" max="2023" th:field="*{bike.yearOfProduction}">
+        </div>
+        <div class="col">
+            <label for="inputLicensePlate" class="form-label">Numer rejestracyjny</label>
+            <input type="text" class="form-control" id="inputLicensePlate" placeholder="Nr rejestracyjny" required minlength="7" maxlength="7" th:field="*{bike.licensePlate}">
+        </div>
+        <div class="col">
+            <label for="inputAirConditioning" class="form-label">Typ</label>
+            <select id="inputAirConditioning" class="form-select" th:field="*{bike.type}">
+                <option th:value="ROAD" th:text="Szosowy" selected></option>
+                <option th:value="ELECTRIC" th:text="Elektryczny"></option>
+                <option th:value="MOUNTAIN" th:text="Górski"></option>
+                <option th:value="UTILITY" th:text="Miejski"></option>
+            </select>
+        </div>
+        <div class="col" style="margin-top: auto">
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </div>
     </form>
 </div>
 </body>

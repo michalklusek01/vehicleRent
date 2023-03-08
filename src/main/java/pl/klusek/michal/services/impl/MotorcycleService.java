@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.klusek.michal.dao.IMotorcycleDAO;
 import pl.klusek.michal.model.Motorcycle;
+import pl.klusek.michal.model.Vehicle;
 import pl.klusek.michal.services.IMotorcycleService;
 import pl.klusek.michal.session.SessionObject;
 import pl.klusek.michal.validators.VehicleValidator;
@@ -29,7 +30,7 @@ public class MotorcycleService implements IMotorcycleService {
             this.sessionObject.setInfo("Pojazd o podanym numerze rejestracyjnym już jest w bazie!");
             return false;
         }
-
+        motorcycle.setVehicleType(Vehicle.VehicleType.MOTORCYCLE);
         this.motorcycleDAO.addMotorcycle(motorcycle);
         return true;
     }

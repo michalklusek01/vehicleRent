@@ -37,6 +37,23 @@ public class ReservationDAO implements IReservationDAO {
     }
 
     @Override
+    public void deleteReservation(Reservation reservation) {
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+        try{
+            transaction = session.beginTransaction();
+            session.delete(reservation);
+            transaction.commit();
+        }catch(Exception e){
+            if(transaction != null){
+                transaction.rollback();
+            }
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
     public List<Reservation> getReservationsByUserId(int id) {
         Session session = this.sessionFactory.openSession();
         Query<Reservation> query = session.createQuery("FROM pl.klusek.michal.model.Reservation WHERE user_id = :id");
@@ -82,5 +99,19 @@ public class ReservationDAO implements IReservationDAO {
         return reservations;
     }
 
+    @Override
+    public Reservation getReservationById(int id) {
+        Session session = this.sessionFactory.openSession();
+        Query<Reservation> query = session.createQuery("FROM pl.klusek.michal.model.Reservation WHERE id = :id");
+        query.setParameter("id", id);
+        Reservation reservation = null;
+        try {
+            reservation = query.getSingleResult();
+        }catch (NoResultException e){
 
+        }finally {
+            session.close();
+        }
+        return reservation;
+    }
 }

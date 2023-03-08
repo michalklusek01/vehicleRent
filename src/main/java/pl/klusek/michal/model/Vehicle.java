@@ -12,14 +12,17 @@ public class Vehicle {
     private String brand;
     private String model;
     private int yearOfProduction;
+    @Column(unique = true)
     private String licensePlate;
     private double price;
     private boolean rent;
+    @Enumerated(EnumType.STRING)
+    private VehicleType vehicleType;
 
     public Vehicle() {
     }
 
-    public Vehicle(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean isRent) {
+    public Vehicle(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean rent, VehicleType vehicleType) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -27,10 +30,7 @@ public class Vehicle {
         this.licensePlate = licensePlate;
         this.price = price;
         this.rent = rent;
-    }
-
-    public Vehicle(int id){
-        this.id = id;
+        this.vehicleType = vehicleType;
     }
 
     public int getId() {
@@ -89,6 +89,14 @@ public class Vehicle {
         this.rent = rent;
     }
 
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -102,11 +110,9 @@ public class Vehicle {
                 '}';
     }
 
-    /*    public enum vehicleType{
+        public enum VehicleType{
             CAR,
             MOTORCYCLE,
             BIKE
-            //TODO
-            //efektywniejszym rozwiazaniem jest wypisywanie po typie enuma w html dodatkowych atrybutow typu
-    }*/
+    }
 }

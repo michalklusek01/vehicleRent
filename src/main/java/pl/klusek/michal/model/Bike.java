@@ -4,29 +4,15 @@ import javax.persistence.*;
 @Entity(name="tbike")
 @PrimaryKeyJoinColumn(name = "vehicle_id")
 public class Bike extends Vehicle{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Enumerated(EnumType.STRING)
     private Type type;
 
     public Bike() {
     }
 
-    public Bike(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean isRent, int id1, Type type) {
-        super(id, brand, model, yearOfProduction, licensePlate, price, isRent);
-        this.id = id1;
+    public Bike(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean rent, VehicleType vehicleType, Type type) {
+        super(id, brand, model, yearOfProduction, licensePlate, price, rent, vehicleType);
         this.type = type;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Type getType() {
@@ -35,6 +21,16 @@ public class Bike extends Vehicle{
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
     }
 
     @Override
@@ -97,6 +93,15 @@ public class Bike extends Vehicle{
         super.setRent(rent);
     }
 
+    @Override
+    public VehicleType getVehicleType() {
+        return super.getVehicleType();
+    }
+
+    @Override
+    public void setVehicleType(VehicleType vehicleType) {
+        super.setVehicleType(vehicleType);
+    }
 
     public enum Type{
         ELECTRIC,

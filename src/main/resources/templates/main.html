@@ -5,70 +5,55 @@
     <title>Wypożyczalnia pojazdów</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="bootstrap.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
 </head>
 <body style="background-color: #737373">
-<div th:replace="fragments.html :: logo"></div>
-<div th:replace="fragments.html :: menu"></div>
+<div th:replace="menu.html :: main-menu"></div>
+
 <div id="content">
-    <form id="finder" method="post" action="/find">
-        <label>Search here:</label>
-        <input type="search" name="pattern">
-        <input type="submit" value="Szukaj pojazdu!">
-    </form>
-    <div>Typ pojazdu:</div>
-    <form id="filterVehicles" method="post" action="/filterVehicles">
-            <input type="radio" id="vehicles" name="vehicle_type" value="vehicles">
-            <label for="vehicles">Wszystkie</label><br>
-            <input type="radio" id="car" name="vehicle_type" value="car">
-            <label for="car">Samochód</label><br>
-            <input type="radio" id="motorcycle" name="vehicle_type" value="motorcycle">
-            <label for="motorcycle">Motocykl</label><br>
-            <input type="radio" id="bicycle" name="vehicle_type" value="bicycle">
-            <label for="bicycle">Rower</label><br>
-            <input type="submit" value="OK">
-    </form>
-    <div>Typ skrzyni biegów::</div>
-    <form method="post" action="/filterTransmission">
-        <input type="radio" id="automatic" name="transmission_type" value="automatic">
-        <label for="automatic">Automatyczna</label><br>
-        <input type="radio" id="manual" name="transmission_type" value="manual">
-        <label for="manual">Manualna</label><br>
-        <input type="submit" value="OK">
-    </form>
-    <div th:if="${info != null}" th:text="${info}" class="error-info"></div>
+    <div class="alert alert-warning" role="alert" th:if="${info != null}" th:text="${info}">
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
     <th:block th:each="vehicle : ${vehicles}">
-        <div class="vehicle">
-            <div class="vehicle-title">
-                <div th:text="${vehicle.brand}"></div>
-                <div th:text="${vehicle.model}"></div>
-            </div>
-            <div class="vehicle-info">
-                <div th:text="'Cena: ' + ${vehicle.price}"></div>
-                <div th:text="'Rok produkcji: ' + ${vehicle.yearOfProduction}"></div>
-                <div th:if="${role?.name() == 'ADMIN'}" th:text="'Nr rejestracyjny: ' + ${vehicle.licensePlate}"></div>
-                <div th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}" th:text="'Typ paliwa: ' + ${vehicle.fuelType}"></div>
-                <div th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}" th:text="'Typ skrzyni biegów: ' + ${vehicle.transmission}"></div>
-                <div th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}" th:text="'Klimatyzacja: ' + ${vehicle.airConditioning}"></div>
-                <div th:if="${vehicle.class.name == 'pl.klusek.michal.model.Motorcycle'}" th:text="'Typ: ' + ${vehicle.type}"></div>
-                <div th:if="${vehicle.class.name == 'pl.klusek.michal.model.Motorcycle'}" th:text="'Typ skrzynki biegów: ' + ${vehicle.transmission}"></div>
-                <div th:if="${vehicle.class.name == 'pl.klusek.michal.model.Bike'}" th:text="'Typ: ' + ${vehicle.type}"></div>
-                <div th:if="${vehicle.rent} == true" id="rent-true">Pojazd niedostępny</div>
-                <div th:if="${vehicle.rent} == false" id="rent-false">Pojazd dostępny!</div>
-                <div th:if="${role?.name() == 'ADMIN'}"><a th:href="@{/editVehicle/{licensePlate}(licensePlate=${vehicle.licensePlate})}">edytuj</a></div>
+        <div class="col">
+        <div class="card">
+            <img th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}"
+                 src="/car.jpg" class="card-img-top">
+            <img th:if="${vehicle.class.name == 'pl.klusek.michal.model.Motorcycle'}"
+                 src="/motorcycle.png" class="card-img-top">
+            <img th:if="${vehicle.class.name == 'pl.klusek.michal.model.Bike'}"
+                 src="/bicycle.png" class="card-img-top">
+            <div class="card-body">
+                <h3 class="card-title" th:text="${vehicle.brand}"></h3>
+                <h3 class="card-title" th:text="${vehicle.model}"></h3>
+                <h5 class="card-title" th:text="'Cena: ' + ${vehicle.price}"></h5>
+                <h5 class="card-title" th:text="'Rok produkcji: ' + ${vehicle.yearOfProduction}"></h5>
+                <h5 class="card-title" th:if="${role?.name() == 'ADMIN'}" name="licensePlate" th:text="'Nr rejestracyjny: ' + ${vehicle.licensePlate}"></h5>
+                <h5 class="card-title" th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}" th:text="'Typ paliwa: ' + ${vehicle.fuelType}"></h5>
+                <h5 class="card-title" th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}" th:text="'Typ skrzyni biegów: ' + ${vehicle.transmission}"></h5>
+                <h5 class="card-title" th:if="${vehicle.class.name == 'pl.klusek.michal.model.Car'}" th:text="'Klimatyzacja: ' + ${vehicle.airConditioning}"></h5>
+                <h5 class="card-title" th:if="${vehicle.class.name == 'pl.klusek.michal.model.Motorcycle'}" th:text="'Typ: ' + ${vehicle.type}"></h5>
+                <h5 class="card-title" th:if="${vehicle.class.name == 'pl.klusek.michal.model.Motorcycle'}" th:text="'Typ skrzynki biegów: ' + ${vehicle.transmission}"></h5>
+                <h5 class="card-title" th:if="${vehicle.class.name == 'pl.klusek.michal.model.Bike'}" th:text="'Typ: ' + ${vehicle.type}"></h5>
+                <h5 class="card-title" th:if="${vehicle.rent} == true" id="rent-true">Pojazd niedostępny!</h5>
+                <h5 class="card-title" th:if="${vehicle.rent} == false" id="rent-false">Pojazd dostępny!</h5>
                 <form method="post" action="/rent_date" th:if="${vehicle.rent == false and role?.name() == 'USER'}">
-                    <form>
-                        <label for="date_from">Od:</label>
-                        <input type="date" id="date_from" name="dateString1">
-                        <label for="date_to">Do:</label>
-                        <input type="date" id="date_to" name="dateString2">
-                        <input type="submit" value="Rezerwuj!">
-                        <input type="hidden" name="licensePlate" th:value="${vehicle.licensePlate}">
-                    </form>
-                    <!--<input type="hidden" name="id" th:value="${vehicle.id}">      przekminic jeszcze ew -->
+                    <label for="startDate">Od:</label>
+                    <input type="date" id="startDate" class="form-control" name="dateString1">
+                    <label for="startDate">Do:</label>
+                    <input type="date" id="startDate2" class="form-control" name="dateString2">
+                    <input type="hidden" name="licensePlate" th:value="${vehicle.licensePlate}">
+                    <button type="submit" class="btn btn-primary">Rezerwuj</button>
                 </form>
+                <a th:if="${role?.name() == 'ADMIN'}" th:href="@{/editVehicle/{licensePlate}(licensePlate=${vehicle.licensePlate})}" class="btn btn-primary">edytuj</a>
+                <a th:if="${role?.name() == 'ADMIN'}" th:href="@{/deleteVehicle/{licensePlate}(licensePlate=${vehicle.licensePlate})}" class="btn btn-primary">usuń</a>
             </div>
         </div>
+        </div>
     </th:block>
+    </div>
 </div>
 </body>
 </html>

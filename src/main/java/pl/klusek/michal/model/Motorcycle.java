@@ -1,12 +1,12 @@
 package pl.klusek.michal.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Entity(name="tmotorcycle")
 @PrimaryKeyJoinColumn(name = "vehicle_id")
 public class Motorcycle extends Vehicle{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Enumerated(EnumType.STRING)
     private Type type;
     @Enumerated(EnumType.STRING)
@@ -15,21 +15,10 @@ public class Motorcycle extends Vehicle{
     public Motorcycle() {
     }
 
-    public Motorcycle(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean isRent, int id1, Type type, Transmission transmission) {
-        super(id, brand, model, yearOfProduction, licensePlate, price, isRent);
-        this.id = id1;
+    public Motorcycle(int id, String brand, String model, int yearOfProduction, String licensePlate, double price, boolean rent, VehicleType vehicleType, Type type, Transmission transmission) {
+        super(id, brand, model, yearOfProduction, licensePlate, price, rent, vehicleType);
         this.type = type;
         this.transmission = transmission;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Type getType() {
@@ -46,6 +35,16 @@ public class Motorcycle extends Vehicle{
 
     public void setTransmission(Transmission transmission) {
         this.transmission = transmission;
+    }
+
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
     }
 
     @Override
@@ -106,6 +105,16 @@ public class Motorcycle extends Vehicle{
     @Override
     public void setRent(boolean rent) {
         super.setRent(rent);
+    }
+
+    @Override
+    public VehicleType getVehicleType() {
+        return super.getVehicleType();
+    }
+
+    @Override
+    public void setVehicleType(VehicleType vehicleType) {
+        super.setVehicleType(vehicleType);
     }
 
     public enum Transmission{

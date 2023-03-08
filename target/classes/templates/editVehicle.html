@@ -4,22 +4,24 @@
   <meta charset="UTF-8">
   <title>Wypożyczalnia pojazdów</title>
   <link rel="stylesheet" href="common.css">
-  <link rel="stylesheet" href="addVehicle.css">
-  <script src="addCar.js"></script>
+  <link rel="stylesheet" href="bootstrap.css">
+  <script src="bootstrap.bundle.min.js"></script>
+  <script src="bootstrap.js"></script>
 </head>
 <body style="background-color: #737373">
-<div th:replace="fragments.html :: logo"></div>
-<div th:replace="fragments.html :: menu"></div>
+<div th:replace="menu.html :: main-menu"></div>
 <div id="content">
-
-  <form id="add-vehicle-form" method="post" onsubmit="return validate()"> <!-- kiedy ktoś kliknie Submit odpalana jest funkcja validate
-    jesli formularz zwroci false formularz nie zostanie wyslany, jesli true to zostanie wyslany -->
+  <form id="add-vehicle-form" method="post" onsubmit="return validate()">
     <div th:if="${info != null}" th:text="${info}" class="error-info"></div>
     <input type="text" placeholder="Marka" th:field="*{vehicle.brand}">
     <input type="text" placeholder="Model" th:field="*{vehicle.model}">
     <input type="text" placeholder="Cena" th:field="*{vehicle.price}" id="price-input">
     <input type="text" placeholder="Rok produkcji" th:field="*{vehicle.yearOfProduction}">
     <input type="text" placeholder="Nr rejestracyjny" th:field="*{vehicle.licensePlate}" id="license-plate-input">
+    <select th:field="*{vehicle.rent}">
+      <option th:value="true" th:text="Niedostępny"></option>
+      <option th:value="false" th:text="Dostępny"></option>
+    </select>
     <input type="submit" value="Wyslij">
   </form>
 </div>

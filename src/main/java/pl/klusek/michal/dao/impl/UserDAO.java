@@ -19,7 +19,8 @@ public class UserDAO implements IUserDAO {
     @Override
     public User getUserByLogin(String login) {
         Session session = this.sessionFactory.openSession();
-        Query<User> query = session.createQuery("FROM pl.klusek.michal.model.User WHERE login = :login");
+        Query<User> query = session.createQuery("FROM pl.klusek.michal.model.User "
+                + "WHERE login = :login");
         query.setParameter("login", login);
         User user = null;
         try {
@@ -41,6 +42,23 @@ public class UserDAO implements IUserDAO {
             session.save(user);
             transaction.commit();
         } catch (Exception e){
+            if(transaction != null){
+                transaction.rollback();
+            }
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void changeUserPassword(User user) {
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+        try{
+            transaction = session.beginTransaction();
+            session.update(user);
+            transaction.commit();
+        }catch (Exception e){
             if(transaction != null){
                 transaction.rollback();
             }

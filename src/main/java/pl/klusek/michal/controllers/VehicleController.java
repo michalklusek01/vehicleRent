@@ -32,18 +32,20 @@ public class VehicleController {
     @RequestMapping(value = "addVehicle", method = RequestMethod.GET)
     public String addVehicle(Model model) {
         model.addAttribute("vehicle", new Vehicle());
-        model.addAttribute("info", this.sessionObject.getInfo()); //html wyswietli jesli info jest rożne od null
+        model.addAttribute("info", this.sessionObject.getInfo());
         model.addAttribute("logged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "addVehicle";
     }
 
     @RequestMapping(value = "addCar", method = RequestMethod.GET)
     public String addCar(Model model){
         model.addAttribute("car", new Car());
-        model.addAttribute("info", this.sessionObject.getInfo()); //html wyswietli jesli info jest rożne od null
+        model.addAttribute("info", this.sessionObject.getInfo());
         model.addAttribute("logged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "addCar";
     }
 
@@ -58,9 +60,10 @@ public class VehicleController {
     @RequestMapping(value = "addMotorcycle", method = RequestMethod.GET)
     public String addMotorcycle(Model model){
         model.addAttribute("motorcycle", new Motorcycle());
-        model.addAttribute("info", this.sessionObject.getInfo()); //html wyswietli jesli info jest rożne od null
+        model.addAttribute("info", this.sessionObject.getInfo());
         model.addAttribute("logged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "addMotorcycle";
     }
 
@@ -75,9 +78,10 @@ public class VehicleController {
     @RequestMapping(value = "addBike", method = RequestMethod.GET)
     public String addBike(Model model){
         model.addAttribute("bike", new Bike());
-        model.addAttribute("info", this.sessionObject.getInfo()); //html wyswietli jesli info jest rożne od null
+        model.addAttribute("info", this.sessionObject.getInfo());
         model.addAttribute("logged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "addBike";
     }
 
@@ -99,6 +103,7 @@ public class VehicleController {
         model.addAttribute("info", this.sessionObject.getInfo());
         model.addAttribute("logged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getRole() : null);
+        model.addAttribute("user", this.sessionObject.getUser() != null ? this.sessionObject.getUser().getLogin() : null);
         return "editVehicle";
     }
 
@@ -110,5 +115,18 @@ public class VehicleController {
         }
 
         return "redirect:/editVehicle/" + licensePlate;
+    }
+
+    @RequestMapping(value = "/deleteVehicle/{licensePlate}", method = RequestMethod.GET)
+    public String deleteVehicle(@PathVariable String licensePlate){
+        Vehicle vehicleFromDb = this.vehicleService.getVehicleByLicensePlate(licensePlate);
+        if(vehicleFromDb == null){
+            this.sessionObject.setInfo("Nie ma takiego pojazdu w bazie danych");
+            return "redirect:/main";
+        }
+        this.vehicleService.deleteVehicle(vehicleFromDb);
+        this.sessionObject.setInfo("Pojazd " + vehicleFromDb.getBrand()
+                + " " + vehicleFromDb.getModel() + " usunięty z bazy danych!!!");
+        return "redirect:/main";
     }
 }

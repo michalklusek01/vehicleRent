@@ -10,9 +10,9 @@ public interface IVehicleDAO {
     void addVehicle(Vehicle vehicle);
     Vehicle findVehicleByLicensePlate(String licensePlate);
     void updateVehicle(Vehicle vehicle);
-//    Vehicle getVehicleByData(String brand, String model, String licensePlate);
     Vehicle getVehicleById(int id);
 
     List<Vehicle> getFilteredVehiclesByType(String vehicleType);
     List<Vehicle> getFilteredVehiclesByTransmission(String transmission_type);
+    void deleteVehicle(Vehicle vehicle);
 }

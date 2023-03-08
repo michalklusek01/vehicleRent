@@ -1,12 +1,10 @@
 package pl.klusek.michal.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 import pl.klusek.michal.dao.IVehicleDAO;
 import pl.klusek.michal.model.Car;
 import pl.klusek.michal.model.Vehicle;
-import pl.klusek.michal.services.IReservationService;
 import pl.klusek.michal.services.IVehicleService;
 import pl.klusek.michal.session.SessionObject;
 import pl.klusek.michal.validators.VehicleValidator;
@@ -19,17 +17,18 @@ public class VehicleService implements IVehicleService {
     @Autowired
     SessionObject sessionObject;
 
-    @Autowired
-    IReservationService reservationService;
-
     @Override
     public List<Vehicle> getFilteredVehicles() {
-        if(this.sessionObject.getFindPattern() != null && !this.sessionObject.getFindPattern().equals("")) {
-            return this.vehicleDAO.getFilteredVehicles(this.sessionObject.getFindPattern());
+        if(this.sessionObject.getFindPattern() != null
+                && !this.sessionObject.getFindPattern().equals("")) {
+            return this.vehicleDAO.getFilteredVehicles
+                    (this.sessionObject.getFindPattern());
         }else if(this.sessionObject.getVehicleTypeFilter() != null){
-            return this.vehicleDAO.getFilteredVehiclesByType(this.sessionObject.getVehicleTypeFilter());
+            return this.vehicleDAO.getFilteredVehiclesByType
+                    (this.sessionObject.getVehicleTypeFilter());
         }else if(this.sessionObject.getTransmissionTypeFilter() != null){
-            return this.vehicleDAO.getFilteredVehiclesByTransmission(this.sessionObject.getTransmissionTypeFilter());
+            return this.vehicleDAO.getFilteredVehiclesByTransmission
+                    (this.sessionObject.getTransmissionTypeFilter());
         }else{
             return this.vehicleDAO.getAllVehicles();
         }
@@ -81,5 +80,10 @@ public class VehicleService implements IVehicleService {
     @Override
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
         return this.vehicleDAO.findVehicleByLicensePlate(licensePlate);
+    }
+
+    @Override
+    public void deleteVehicle(Vehicle vehicle) {
+        this.vehicleDAO.deleteVehicle(vehicle);
     }
 }

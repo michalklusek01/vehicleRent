@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.klusek.michal.dao.IBikeDAO;
 import pl.klusek.michal.model.Bike;
+import pl.klusek.michal.model.Car;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -72,6 +73,22 @@ public class BikeDAO implements IBikeDAO {
         } catch (NoResultException e){
 
         }finally {
+            session.close();
+        }
+        return bike;
+    }
+
+    @Override
+    public Bike FindBikeByLicensePlate(String plate) {
+        Session session = this.sessionFactory.openSession();
+        Query<Bike> query = session.createQuery("FROM pl.klusek.michal.model.Bike WHERE licensePlate = :plate");
+        query.setParameter("plate", plate);
+        Bike bike = null;
+        try{
+            bike = query.getSingleResult();
+        } catch(NoResultException e){
+
+        } finally {
             session.close();
         }
         return bike;

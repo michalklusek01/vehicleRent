@@ -4,25 +4,59 @@
     <meta charset="UTF-8">
     <title>Wypożyczalnia pojazdów</title>
     <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="addVehicle.css">
-    <script src="addCar.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="bootstrap.js"></script>
 </head>
 <body style="background-color: #737373">
-<div th:replace="fragments.html :: logo"></div>
-<div th:replace="fragments.html :: menu"></div>
+<div th:replace="menu.html :: main-menu"></div>
 <div id="content">
-
-    <form id="add-vehicle-form" method="post" onsubmit="return validate()">
-        <div th:if="${info != null}" th:text="${info}" class="error-info"></div>
-        <input type="text" placeholder="Marka" th:field="*{car.brand}">
-        <input type="text" placeholder="Model" th:field="*{car.model}">
-        <input type="text" placeholder="Cena" th:field="*{car.price}" id="price-input">
-        <input type="text" placeholder="Rok produkcji" th:field="*{car.yearOfProduction}">
-        <input type="text" placeholder="Nr rejestracyjny" th:field="*{car.licensePlate}" id="license-plate-input">
-        <input type="text" placeholder="Typ paliwa [GASOLINE/DIESEL/GAS]" th:field="*{car.fuelType}" id="fuel-type">
-        <input type="text" placeholder="Skrzynia biegów [MANUAL/AUTOMATIC]" th:field="*{car.transmission}" id="transmission-type">
-        <input type="text" placeholder="Klimatyzacja [True/False]" th:field="*{car.airConditioning}" id="airConditioning">
-        <input type="submit" value="Wyslij">
+    <form class="row row-cols-1 row-cols-md-3 g-4" method="post" onsubmit="return validate()">
+        <div class="col">
+            <label for="inputBrand" class="form-label">Marka</label>
+            <input type="text" class="form-control" id="inputBrand" th:field="*{car.brand}">
+        </div>
+        <div class="col">
+            <label for="inputModel" class="form-label">Model</label>
+            <input type="text" class="form-control" id="inputModel" th:field="*{car.model}">
+        </div>
+        <div class="col">
+            <label for="inputPrice" class="form-label">Cena/dzień</label>
+            <input type="number" class="form-control" id="inputPrice" min="0" max="1000" th:field="*{car.price}">
+        </div>
+        <div class="col">
+            <label for="inputYear" class="form-label">Rok produkcji</label>
+            <input type="number" class="form-control" id="inputYear" placeholder="Rok produkcji" min="2000" max="2023" th:field="*{car.yearOfProduction}">
+        </div>
+        <div class="col">
+            <label for="inputLicensePlate" class="form-label">Numer rejestracyjny</label>
+            <input type="text" class="form-control" id="inputLicensePlate" placeholder="Nr rejestracyjny" required minlength="7" maxlength="7" th:field="*{car.licensePlate}">
+        </div>
+        <div class="col">
+            <label for="inputFuelType" class="form-label">Typ paliwa</label>
+            <select id="inputFuelType" class="form-select" th:field="*{car.fuelType}">
+                <option  th:value="GASOLINE" th:text="Benzyna" selected></option>
+                <option  th:value="DIESEL" th:text="Diesel"></option>
+                <option  th:value="GAS" th:text="Gaz"></option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="inputAirConditioning" class="form-label">Klimatyzacja</label>
+            <select id="inputAirConditioning" class="form-select" th:field="*{car.airConditioning}">
+                <option  th:value="true" th:text="tak" selected></option>
+                <option  th:value="false" th:text="nie"></option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="inputTransmission" class="form-label">Typ skrzyni biegów</label>
+            <select id="inputTransmission" class="form-select" th:field="*{car.transmission}">
+                <option th:value="AUTOMATIC" th:text="Automatyczna" selected></option>
+                <option  th:value="MANUAL" th:text="Manualna"></option>
+            </select>
+        </div>
+        <div class="col" style="margin-top: auto">
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </div>
     </form>
 </div>
 </body>
